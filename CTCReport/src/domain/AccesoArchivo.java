@@ -85,4 +85,27 @@ public class AccesoArchivo {
         }
 
     }
+
+    public void copiarArchivo(String archivoEntrada, String archivoSalida) {
+        File fileInput = new File(archivoEntrada);
+        File fileOutput = new File(archivoSalida);
+        try {
+            BufferedReader entrada = new BufferedReader(new FileReader(fileInput));
+            var lectura = entrada.readLine();
+            while(lectura != null){
+                try {
+                   PrintWriter salida = new PrintWriter(new FileWriter(fileOutput, true));
+                    salida.println(lectura);
+                    salida.close(); 
+                }catch(FileNotFoundException ex){
+                    ex.printStackTrace(System.out);
+                }
+                lectura = entrada.readLine();
+            }
+        }catch(FileNotFoundException ex) {
+            ex.printStackTrace(System.out);
+        }catch(IOException ex){
+            ex.printStackTrace(System.out);
+        }
+    }
 }

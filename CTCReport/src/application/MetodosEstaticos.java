@@ -12,15 +12,16 @@ public class MetodosEstaticos {
     public static void buscarElementos(int  OCG, String fecha){
         int numeroDelOCG = numeroOCG(OCG);
         var accesoArchivo = new AccesoArchivo();
-        String directorio = "C:\\Users\\hecto\\Repositorio\\OCGLogs\\OCG";
+        String directorio = "C:\\Users\\hecto\\Repositorio\\OCGLogs\\OCG\\OCG";
+        String directorio2 = "C:\\Users\\hecto\\Repositorio\\OCGLogs\\ArchivosLogs\\OCG";
         
         String ocgPath = directorio + numeroDelOCG + "_" + fecha + ".log";
         
-        String offlinePath = directorio + "_" + numeroDelOCG +  "_offline_" + fecha + ".txt";
+        String offlinePath = directorio2 + "_" + numeroDelOCG +  "_offline_" + fecha + ".txt";
         System.out.println("se crea archivo: " + offlinePath);
-        String deliveryPath = directorio + "_" + numeroDelOCG + "_" + "delivery" + fecha + ".txt";
+        String deliveryPath = directorio2 + "_" + numeroDelOCG + "_delivery_" + fecha + ".txt";
         System.out.println("se crea archivo: " + deliveryPath);
-        String inboundRetryPath = directorio + "_" + numeroDelOCG + "_" + "inboundRetry" + fecha + ".txt";
+        String inboundRetryPath = directorio2 + "_" + numeroDelOCG + "_inboundRetry_" + fecha + ".txt";
         System.out.println("se crea archivo: " + inboundRetryPath);
         
         accesoArchivo.escribirPalabraClave(ocgPath, offlinePath, "B04: Group");
