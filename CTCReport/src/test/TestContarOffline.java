@@ -17,5 +17,6 @@ public class TestContarOffline {
     public static void main(String[] args) {
         contarOffline("20210705");
         contarDeliveryFailed("20210705");
+        contarDeliveryretry("20210705");
     }
 }

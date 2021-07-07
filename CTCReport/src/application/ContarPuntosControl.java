@@ -67,18 +67,18 @@ public class ContarPuntosControl {
         String directorio = "C:\\Users\\hecto\\Repositorio\\OCGLogs\\ArchivoParaExcel\\OCG_DeliveryFailed_";
         String archivoSalida = directorio + fecha + ".txt";
         String archivoEntrada = directorio2 + "_delivery_" + fecha + ".txt";
-        
+
         crearArchivo(archivoSalida);
         File archivo = new File(archivoSalida);
         var retryMapCount = retryMap();
-        
+
         try {
             BufferedReader entrada = new BufferedReader(new FileReader(archivoEntrada));
             var lectura = entrada.readLine();
-            while(lectura != null){
+            while (lectura != null) {
                 lectura = entrada.readLine();
-                for (int i = 0; i < myControlPointsretryList.length; i++){
-                    if(lectura.contains(myControlPointsretryList[i]) && lectura.contains("Delivery Failed")){
+                for (int i = 0; i < myControlPointsretryList.length; i++) {
+                    if (lectura.contains(myControlPointsretryList[i]) && lectura.contains("Delivery Failed")) {
                         int valor = (int) retryMapCount.get(myControlPointsretryList[i]);
                         int valorIncrementado = ++valor;
                         retryMapCount.put(myControlPointsretryList[i], valorIncrementado);
@@ -86,9 +86,52 @@ public class ContarPuntosControl {
                 }
                 lectura = entrada.readLine();
             }
-        }catch(FileNotFoundException ex) {
+        } catch (FileNotFoundException ex) {
             ex.printStackTrace(System.out);
-        }catch(IOException ex){
+        } catch (IOException ex) {
+            ex.printStackTrace(System.out);
+        } finally {
+            try {
+                PrintWriter salida = new PrintWriter(new FileWriter(archivo, true));
+                for (int i = 0; i < myControlPointsretryList.length; i++) {
+                    salida.println(myControlPointsretryList[i] + " " + retryMapCount.get(myControlPointsretryList[i]));
+                }
+                salida.close();
+                System.out.println("Se a escrito el archivo");
+            } catch (FileNotFoundException ex) {
+                ex.printStackTrace(System.out);
+            } catch (IOException ex) {
+                ex.printStackTrace(System.out);
+            }
+        }
+    }
+
+    public static void contarDeliveryretry(String fecha) {
+        String directorio = "C:\\Users\\hecto\\Repositorio\\OCGLogs\\ArchivoParaExcel\\OCG_DeliveryRetry_";
+        String archivoSalida = directorio + fecha + ".txt";
+        String archivoEntrada = directorio2 + "_delivery_" + fecha + ".txt";
+
+        crearArchivo(archivoSalida);
+        File archivo = new File(archivoSalida);
+        var retryMapCount = retryMap();
+
+        try {
+            BufferedReader entrada = new BufferedReader(new FileReader(archivoEntrada));
+            var lectura = entrada.readLine();
+            while (lectura != null) {
+                lectura = entrada.readLine();
+                for (int i = 0; i < myControlPointsretryList.length; i++) {
+                    if (lectura.contains(myControlPointsretryList[i]) && lectura.contains("Delivery Retry")) {
+                        int valor = (int) retryMapCount.get(myControlPointsretryList[i]);
+                        int valorIncrementado = ++valor;
+                        retryMapCount.put(myControlPointsretryList[i], valorIncrementado);
+                    }
+                }
+                lectura = entrada.readLine();
+            }
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace(System.out);
+        } catch (IOException ex) {
             ex.printStackTrace(System.out);
         } finally {
             try {
@@ -97,7 +140,6 @@ public class ContarPuntosControl {
                     salida.println(myControlPointsretryList[i] + " " + retryMapCount.get(myControlPointsretryList[i]));
                 }
                 salida.close();
-                System.out.println("Se a escrito el archivo");
             }catch(FileNotFoundException ex){
                 ex.printStackTrace(System.out);
             }catch(IOException ex){
