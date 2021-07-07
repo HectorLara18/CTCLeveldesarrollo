@@ -32,7 +32,16 @@ public class JuntarArchivos {
         crearArchivo(archivo);
         accesoArchivo.copiarArchivo(archivoOrigenOCG1, archivo);
         accesoArchivo.copiarArchivo(archivoOrigenOCG2, archivo);
-        System.out.println("se completa proceso");
+        System.out.println("se completa proceso para archivo: " + tipoArchivo);
+    }
+    
+    public static void ejecutarArchivos(String fecha){
+        String offline = "offline";
+        String delivery = "delivery";
+        String inboundRetry = "inboundRetry";
+        unirArchivos(fecha, offline);
+        unirArchivos(fecha, delivery);
+        unirArchivos(fecha, inboundRetry);
     }
     
 }
