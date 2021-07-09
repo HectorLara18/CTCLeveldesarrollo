@@ -54,7 +54,7 @@ public class ContarPuntosControl {
                     salida.println(myControlPointsList[i] + " " + offlineMapCount.get(myControlPointsList[i]));
                 }
                 salida.close();
-                System.out.println("Se ha escrito al archivo");
+                System.out.println("Se a escrito al archivo");
             } catch (FileNotFoundException ex) {
                 ex.printStackTrace(System.out);
             } catch (IOException ex) {
@@ -147,5 +147,49 @@ public class ContarPuntosControl {
             }
         }
     }
+    
+    public static void contarInboundRetry(String fecha){
+        String directorio = "C:\\Users\\hecto\\Repositorio\\OCGLogs\\ArchivoParaExcel\\OCG_inboundRetry_";
+        String archivoSalida = directorio + fecha + ".txt";
+        String archivoEntrada = directorio2 + "_inboundRetry_" + fecha + ".txt";
+        
+        crearArchivo(archivoSalida);
+        File archivo = new File(archivoSalida);
+        var inboundRetryMapCount = offlineMap();
+        
+        try {
+            BufferedReader entrada = new BufferedReader(new FileReader(archivoEntrada));
+            var lectura = entrada.readLine();
+            while(lectura != null){
+                for(int i = 0; i < myControlPointsList.length; i++){
+                    if(lectura.contains(myControlPointsList[i])){
+                        int valor = (int) inboundRetryMapCount.get(myControlPointsList[i]);
+                        int valorIncrementado = ++valor;
+                        inboundRetryMapCount.put(myControlPointsList[i], valorIncrementado);
+                    }
+                }
+                lectura = entrada.readLine();
+            }
+        }catch(FileNotFoundException ex) {
+            ex.printStackTrace(System.out);
+        }catch(IOException ex){
+            ex.printStackTrace(System.out);
+        }finally {
+            try{
+                PrintWriter salida = new PrintWriter(new FileWriter(archivo, true));
+                for(int i = 0; i < myControlPointsList.length; i++){
+                    salida.println(myControlPointsList[i] + " " + inboundRetryMapCount.get(myControlPointsList[i]));
+                }
+                salida.close();
+                System.out.println("se a escrito el archivo");
+            }catch(FileNotFoundException ex){
+                ex.printStackTrace(System.out);
+            }catch(IOException ex){
+                ex.printStackTrace(System.out);
+            }
+        }
+    }
+    
+    
 
 }

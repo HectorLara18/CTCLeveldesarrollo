@@ -6,6 +6,7 @@
 package test;
 
 import static application.JuntarArchivos.*;
+import static application.ContarPuntosControl.*;
 
 /**
  *
@@ -15,5 +16,14 @@ public class TestejecutarArchivo {
     public static void main(String[] args) {
         generarArchivos("20210705");
         ejecutarArchivos("20210705");
+    }
+    
+    public static void analizarLogs(String fecha){
+        generarArchivos(fecha);
+        ejecutarArchivos(fecha);
+        contarOffline(fecha);
+        contarDeliveryFailed(fecha);
+        contarDeliveryretry(fecha);
+        contarInboundRetry(fecha);
     }
 }

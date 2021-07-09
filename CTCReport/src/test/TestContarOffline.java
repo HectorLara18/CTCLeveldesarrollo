@@ -18,5 +18,6 @@ public class TestContarOffline {
         contarOffline("20210705");
         contarDeliveryFailed("20210705");
         contarDeliveryretry("20210705");
+        contarInboundRetry("20210705");
     }
 }

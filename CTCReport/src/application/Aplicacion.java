@@ -3,8 +3,8 @@
  */
 package application;
 
-import static application.MetodosEstaticos.*;
-
+import static application.ContarPuntosControl.*;
+import static application.JuntarArchivos.*;
 /**
  *
  * Buscar Elementos es un metodo estatico que recibe 2 argumentos
@@ -13,10 +13,14 @@ import static application.MetodosEstaticos.*;
  * 
  */
 public class Aplicacion {
-    public static void main(String[] args) {
-        
-        buscarElementos(2,"20200220");
-        
+    
+    public static void analizarLogs(String fecha){
+        generarArchivos(fecha);
+        ejecutarArchivos(fecha);
+        contarOffline(fecha);
+        contarDeliveryFailed(fecha);
+        contarDeliveryretry(fecha);
+        contarInboundRetry(fecha);
     }
     
 }
